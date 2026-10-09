@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123b35">
+<title>KonaklaKolay | İşletme Paneli</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f5f7;color:#182838;font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{max-width:720px;margin:auto;padding:20px 14px 40px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{font-weight:850;font-size:21px}.pill{background:#e1f3f7;color:#087eaa;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:800}.intro,.formcard,.result{background:#fff;border:1px solid #e4ebef;border-radius:20px;padding:20px;margin-bottom:14px;box-shadow:0 8px 24px #17344908}h1{font-size:25px;line-height:1.2;margin:0 0 8px}p{color:#657586;margin:0 0 12px}.notice{font-size:13px;background:#fff8e8;color:#805c16;padding:12px;border-radius:12px;margin-top:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{margin-bottom:13px}.field label{display:block;font-weight:750;font-size:13px;margin-bottom:5px}.field input,.field textarea{width:100%;border:1px solid #dce5ea;border-radius:11px;padding:12px;font:inherit;color:#172536;background:#fbfdfe}.field textarea{min-height:70px;resize:vertical}.wide{grid-column:1/-1}.btn{border:0;border-radius:12px;background:#087eaa;color:white;font-weight:800;font-size:15px;padding:13px 16px;width:100%;cursor:pointer}.secondary{background:#e9f4f8;color:#087eaa}.result{display:none}.result.show{display:block}.qr{display:block;width:min(100%,260px);height:auto;margin:14px auto;border:8px solid white}.url{overflow-wrap:anywhere;background:#f2f6f8;border-radius:10px;padding:12px;font-size:12px}.actions{display:grid;gap:9px;margin-top:12px}.small{font-size:12px;color:#7a8794;margin-top:12px}.section{font-size:17px;font-weight:850;margin:0 0 15px}@media(max-width:420px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.wrap{padding:14px 10px 30px}.intro,.formcard,.result{padding:16px}}
+@media print{body{background:white}.top,.intro,.formcard,.actions,.small,.notice{display:none!important}.wrap{padding:0}.result{display:block!important;box-shadow:none;border:0}.qr{width:300px}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="top"><div class="brand">⌂ KonaklaKolay</div><span class="pill">İŞLETME PANELİ</span></header>
+<section class="intro"><h1>Misafir rehberini oluştur</h1><p>Otel bilgilerini doldur, sana özel bağlantıyı ve QR kodunu oluştur. QR kodu okutan misafir, kendi rehberini açar.</p><div class="notice">Bu ücretsiz ilk sürümde bilgiler bağlantının içinde taşınır; ayrı bir sunucu/veritabanı gerekmez. Bağlantıya sahip kişiler girilen bilgileri görebilir. Özel veya hassas bilgi yazma.</div></section>
+<form id="hotelForm" class="formcard">
+<h2 class="section">🏨 İşletme bilgileri</h2>
+<div class="field"><label for="hotel">Otel / pansiyon adı *</label><input id="hotel" required value="Mavi Konak Butik Otel" maxlength="100"></div>
+<div class="field"><label for="tagline">Kısa karşılama mesajı</label><input id="tagline" value="Konaklamanız boyunca ihtiyacınız olan her şey, tek yerde." maxlength="180"></div>
+<div class="grid">
+<div class="field"><label for="checkin">Giriş saati</label><input id="checkin" value="14:00" maxlength="10"></div>
+<div class="field"><label for="checkout">Çıkış saati</label><input id="checkout" value="11:00" maxlength="10"></div>
+<div class="field"><label for="room">Oda numarası (isteğe bağlı)</label><input id="room" placeholder="Örn. 12"></div>
+<div class="field"><label for="wifi">Wi-Fi ağ adı</label><input id="wifi" value="MaviKonak_Guest" maxlength="100"></div>
+<div class="field wide"><label for="password">Wi-Fi şifresi</label><input id="password" value="konak2026" maxlength="100"></div>
+</div>
+<h2 class="section">☎ İletişim ve konum</h2>
+<div class="grid">
+<div class="field"><label for="phone">Telefon (ülke koduyla)</label><input id="phone" placeholder="+90 5xx xxx xx xx" value="+90 555 000 00 00"></div>
+<div class="field"><label for="whatsapp">WhatsApp (ülke koduyla)</label><input id="whatsapp" placeholder="+90 5xx xxx xx xx" value="+90 555 000 00 00"></div>
+<div class="field wide"><label for="breakfast">Kahvaltı bilgisi</label><input id="breakfast" value="08:00–10:30 · Zemin kat" maxlength="140"></div>
+<div class="field wide"><label for="address">Adres (harita bağlantısı için)</label><input id="address" value="Örnek Mahallesi, Kütahya" maxlength="200"></div>
+<div class="field wide"><label for="cover">Kapak fotoğrafı bağlantısı (isteğe bağlı, https://)</label><input id="cover" placeholder="https://..."></div>
+</div>
+<h2 class="section">✦ Tesisler ve olanaklar</h2>
+<div class="grid">
+<div class="field"><label for="a1">Olanak 1</label><input id="a1" value="Ücretsiz Wi-Fi" maxlength="70"></div>
+<div class="field"><label for="a2">Olanak 2</label><input id="a2" value="Resepsiyon desteği" maxlength="70"></div>
+<div class="field"><label for="a3">Olanak 3</label><input id="a3" value="Kahvaltı bilgisi" maxlength="70"></div>
+<div class="field"><label for="a4">Olanak 4</label><input id="a4" value="Çevre ve ulaşım" maxlength="70"></div>
+</div>
+<button class="btn" type="submit">Bağlantı ve QR kod oluştur</button>
+</form>
+<section id="result" class="result">
+<h2 class="section">✓ Rehberin hazır</h2><p>Aşağıdaki bağlantıyı misafirlerine gönderebilir veya QR kodunu yazdırabilirsin.</p>
+<img id="qr" class="qr" alt="Otele özel QR kodu">
+<div id="guestUrl" class="url"></div>
+<div class="actions"><button type="button" id="copy" class="btn">Bağlantıyı kopyala</button><button type="button" id="open" class="btn secondary">Misafir sayfasını aç</button><button type="button" id="print" class="btn secondary">QR kodunu yazdır / PDF kaydet</button></div>
+<div class="small">Not: Bu panelde yapılan değişiklikler otomatik olarak herkese açık bir veritabanına kaydedilmez. Bilgiler değişirse yeni bağlantı ve QR kod oluşturup eskisinin yerine kullanmalısın.</div>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);let currentUrl='';
+$('hotelForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const ids=['hotel','tagline','checkin','checkout','room','wifi','password','phone','whatsapp','breakfast','address','cover','a1','a2','a3','a4'];
+ const d={};ids.forEach(id=>d[id== 'checkin'?'checkin':id== 'checkout'?'checkout':id]=$ (id).value.trim());
+ if(d.cover&&!/^https:\/\//i.test(d.cover)){alert('Kapak fotoğrafı bağlantısı https:// ile başlamalı.');return}
+ const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+ currentUrl=location.origin+location.pathname.replace(/admin\.html$/,'')+'?data='+encoded;
+ $('guestUrl').textContent=currentUrl;
+ $('qr').src='https://api.qrserver.com/v1/create-qr-code/?size=600x600&margin=12&data='+encodeURIComponent(currentUrl);
+ $('result').classList.add('show');$('result').scrollIntoView({behavior:'smooth',block:'start'});
+});
+$('copy').onclick=async()=>{try{await navigator.clipboard.writeText(currentUrl);alert('Bağlantı kopyalandı.')}catch(e){prompt('Bağlantıyı kopyala',currentUrl)}};
+$('open').onclick=()=>{if(currentUrl)window.open(currentUrl,'_blank','noopener')};
+$('print').onclick=()=>window.print();
+</script></body></html>
