@@ -53,7 +53,7 @@ const $=id=>document.getElementById(id);let currentUrl='';
 $('hotelForm').addEventListener('submit',e=>{
  e.preventDefault();
  const ids=['hotel','tagline','checkin','checkout','room','wifi','password','phone','whatsapp','breakfast','address','cover','a1','a2','a3','a4'];
- const d={};ids.forEach(id=>d[id== 'checkin'?'checkin':id== 'checkout'?'checkout':id]=$ (id).value.trim());
+ const d={};ids.forEach(id=>{d[id]=$(id).value.trim()});
  if(d.cover&&!/^https:\/\//i.test(d.cover)){alert('Kapak fotoğrafı bağlantısı https:// ile başlamalı.');return}
  const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
  currentUrl=location.origin+location.pathname.replace(/admin\.html$/,'')+'?data='+encoded;
