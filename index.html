@@ -15,11 +15,11 @@
 <body><main class="page">
 <nav class="nav"><div class="brand"><span class="mark">⌂</span>KonaklaKolay</div><button class="lang" id="lang">EN · English</button></nav>
 <div class="shell">
-<header class="cover"><div class="welcome"><div class="tag" id="eyebrow">DİJİTAL MİSAFİR REHBERİ</div><h1 id="hotelTitle">Mavi Konak Butik Otel</h1><p id="tagline">Konaklamanız boyunca ihtiyacınız olan her şey, tek yerde.</p></div></header>
+<header class="cover" id="coverImage"><div class="welcome"><div class="tag" id="eyebrow">DİJİTAL MİSAFİR REHBERİ</div><h1 id="hotelTitle">Mavi Konak Butik Otel</h1><p id="tagline">Konaklamanız boyunca ihtiyacınız olan her şey, tek yerde.</p></div></header>
 <div class="body">
 <div class="stats">
-<div class="stat"><div class="symbol">↗</div><div class="label" id="inLabel">Giriş</div><strong>14:00</strong></div>
-<div class="stat"><div class="symbol">↙</div><div class="label" id="outLabel">Çıkış</div><strong>11:00</strong></div>
+<div class="stat"><div class="symbol">↗</div><div class="label" id="inLabel">Giriş</div><strong id="inTime">14:00</strong></div>
+<div class="stat"><div class="symbol">↙</div><div class="label" id="outLabel">Çıkış</div><strong id="outTime">11:00</strong></div>
 <div class="stat"><div class="symbol">⌂</div><div class="label" id="roomLabel">Oda</div><strong id="room">—</strong></div>
 </div>
 <div class="wifi">
@@ -44,5 +44,25 @@ tr:{eyebrow:'DİJİTAL MİSAFİR REHBERİ',tagline:'Konaklamanız boyunca ihtiya
 en:{eyebrow:'DIGITAL GUEST GUIDE',tagline:'Everything you need during your stay, all in one place.',inLabel:'Check-in',outLabel:'Check-out',roomLabel:'Room',networkLabel:'Network',passwordLabel:'Password',contactTitle:'Contact',reception:'Reception',receptionSub:'We are happy to help',callText:'Call',breakfastTitle:'Breakfast',breakfast:'08:00–10:30 · Ground floor',locationTitle:'Location & directions',mapText:'Open map',amenitiesTitle:'Facilities & Amenities',a1:'Free Wi-Fi',a2:'Reception support',a3:'Breakfast information',a4:'Local area & transport',note:'Need anything during your stay? Please contact reception. We wish you a wonderful stay!',lang:'TR · Türkçe',copied:'Wi-Fi password copied'}
 };
 function render(){const t=translations[en?'en':'tr'];Object.keys(t).forEach(k=>{if($(k))$(k).textContent=t[k]});document.documentElement.lang=en?'en':'tr';$('lang').textContent=t.lang}
+
+function readGuestData(){
+  const encoded=new URLSearchParams(location.search).get('data');
+  if(!encoded)return;
+  try{
+    const normalized=encoded.replace(/-/g,'+').replace(/_/g,'/');
+    const json=decodeURIComponent(escape(atob(normalized)));
+    const d=JSON.parse(json);
+    const set=(id,value)=>{if($(id)&&value!==undefined&&value!==null)$(id).textContent=String(value)};
+    set('hotelTitle',d.hotel);set('tagline',d.tagline);set('inTime',d.checkin);set('outTime',d.checkout);set('room',d.room);
+    set('wifiName',d.wifi);set('wifiPass',d.password);set('breakfast',d.breakfast);set('address',d.address);
+    set('reception',d.receptionName||'Resepsiyon');set('a1',d.a1);set('a2',d.a2);set('a3',d.a3);set('a4',d.a4);
+    if(d.phone){$('callLink').href='tel:'+d.phone.replace(/[^+0-9]/g,'');}
+    if(d.whatsapp){$('waLink').href='https://wa.me/'+d.whatsapp.replace(/[^0-9]/g,'');}
+    if(d.address){$('mapLink').href='https://maps.google.com/?q='+encodeURIComponent(d.address);}
+    if(d.cover){$('coverImage').style.backgroundImage='linear-gradient(0deg,#061c26a6,transparent 58%),url("'+d.cover.replace(/["\\\\]/g,'')+'")';}
+  }catch(e){console.warn('Misafir rehberi bağlantısındaki bilgiler okunamadı.');}
+}
+
+readGuestData();
 $('lang').onclick=()=>{en=!en;render()};$('copyWifi').onclick=async()=>{const pass=$('wifiPass').textContent;try{await navigator.clipboard.writeText(pass);alert(translations[en?'en':'tr'].copied)}catch(e){prompt(en?'Copy password':'Şifreyi kopyalayın',pass)}};render();
 </script></body></html>
